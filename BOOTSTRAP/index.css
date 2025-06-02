@@ -1,0 +1,14 @@
+.btnn{
+    text-align: center;
+}
+
+.card{
+    background-color: rgba(0, 0, 0, 0.125);
+}
+.cardrow{
+    gap: 30px;
+}
+
+.column{
+    padding: 0px;
+}

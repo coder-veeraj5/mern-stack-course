@@ -1,0 +1,140 @@
+body {
+    font-family: "Poppins", sans-serif;
+    background-color: #f8fafc;
+    color: #1f2937;
+}
+
+.navbar {
+
+    background-color: #1e40af
+}
+
+.nav-link {
+    color: white;
+}
+
+.bg-img {
+    color: white;
+    padding: 100px;
+    background-image: url(https://images.pexels.com/photos/462358/pexels-photo-462358.jpeg?cs=srgb&dl=architectural-design-architecture-blue-sky-462358.jpg&fm=jpg) !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Centers horizontally */
+    justify-content: center;
+    /* Centers vertically */
+    background-color: rgba(134, 176, 235, 0.6);
+}
+
+.bg-img button {
+    background-color: #1e40af;
+    border-radius: 5px;
+    color: white;
+}
+
+.me-div1 img {
+    float: right;
+}
+
+.me-division button {
+    border-radius: 5px;
+    background-color: #1e40af;
+    color: white;
+}
+
+section.about-me h2 {
+    text-align: center;
+    color: #1e40af;
+    margin: 30px;
+    text-decoration: underline #2e94e7 solid;
+
+}
+
+section.skill h2 {
+    text-align: center;
+    color: #1e40af;
+    margin: 30px;
+    text-decoration: underline #2e94e7 solid;
+    margin-top: 75px;
+
+}
+
+.cent {
+    text-align: center;
+    background-color: #efefef;
+    border-radius: 10px;
+
+}
+
+.rowww {
+    column-gap: 15px;
+    flex-wrap: nowrap;
+}
+
+section.exp h2 {
+    text-align: center;
+    color: #1e40af;
+    margin: 30px;
+    text-decoration: underline #2e94e7 solid;
+    margin-top: 75px;
+
+}
+
+section.pro h2 {
+    text-align: center;
+    color: #1e40af;
+    margin: 30px;
+    text-decoration: underline #2e94e7 solid;
+    margin-top: 75px;
+
+}
+section.contact h2 {
+    text-align: center;
+    color: #1e40af;
+    margin: 30px;
+    text-decoration: underline #2e94e7 solid;
+    margin-top: 75px;
+
+}
+.pro-img{
+   background-position: center;
+   background-size: cover;
+       height: 153px;
+    width: 292px;
+   background-repeat: no-repeat;
+    background-image: url(https://as2.ftcdn.net/v2/jpg/02/22/47/97/1000_F_222479791_SvBNxEf7UAxTKjAuG4fZYGJwRFyeIy0b.jpg) !important;
+}
+.probg-color{
+        background-color: #efefef;
+}
+.sendmsg-btn button{
+    background-color: #1e40af !important;
+    border-radius: 5px;
+    color: white;
+}
+.sendmsg-btn{
+    display: grid;
+}
+.map img{
+       height: 250px; width: 442px;
+}
+.map{
+        padding-top: 20px;
+        border: 20px;
+        
+    margin-bottom: 40px;
+
+        /* box-shadow: 10px,10px,5px,7px,red; */
+}
+.foot{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #1e40af;
+   padding: 10px;
+    color: white;
+}

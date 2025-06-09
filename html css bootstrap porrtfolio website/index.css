@@ -35,9 +35,7 @@ body {
     color: white;
 }
 
-.me-div1 img {
-    float: right;
-}
+
 
 .me-division button {
     border-radius: 5px;
@@ -56,9 +54,9 @@ section.about-me h2 {
 section.skill h2 {
     text-align: center;
     color: #1e40af;
-    margin: 30px;
+ 
     text-decoration: underline #2e94e7 solid;
-    margin-top: 75px;
+  margin-bottom: 40px;
 
 }
 
@@ -68,12 +66,16 @@ section.skill h2 {
     border-radius: 10px;
 
 }
+.skill-card img{
+     width: 50px;
+    height: 50px;
+    margin: 20px auto 10px;
 
-.rowww {
-    column-gap: 15px;
-    flex-wrap: nowrap;
 }
-
+.card-body{
+    text-align: center;
+}
+   
 section.exp h2 {
     text-align: center;
     color: #1e40af;

@@ -5,6 +5,20 @@ import Para from './para'
 
 function App() {
  
+  
+  const [name, setName] = useState(); // Hooks
+
+  const [showName, setShowName] = useState(false);
+
+  const handleOnChange = (e) => {
+    console.log(e.target.value);
+    setName(e.target.value);
+  };
+
+  const handleSubmit = () => {
+    setShowName(true);
+  };
+
  const [info,setinfo]= useState([
       {id:349 ,name: "suraj",age:18},
        {id:340 ,name: "yash",age:19},

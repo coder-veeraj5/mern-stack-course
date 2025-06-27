@@ -2,13 +2,13 @@ const Student = require("../models/studentschema");
  
  const createstudent=async(req,res)=>{
   try {
-    const { name, age, email, course, admissionDate } = req.body;
+    const {firstname,lastname, address, age, std } = req.body;
     const studentdata = new Student({
-      name,
+      firstname,
+      lastname,
+      address,
       age,
-      email,
-      course,
-      admissionDate,
+      std
     }); // Create new student from request body
     await studentdata.save(); // Save to database
     res.status(201).json(studentdata); // Return created student

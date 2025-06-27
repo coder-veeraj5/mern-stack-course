@@ -25,9 +25,9 @@ connectMongoDb();
 
 app.post("/students", createstudent);
 
- app.get("/", (req, res) => {
-   res.send("hello from node api veeraj patil 48 yash sahil harish");
-});
+//  app.get("/", (req, res) => {
+//    res.send("hello from node api veeraj patil 48 yash sahil harish");
+// });
 
 app.get("/students", getAllstudent);
 
@@ -37,7 +37,7 @@ app.get("/students/:id", async (req, res) => {
     const student = await Student.findById(req.params.id);
     res.status(200).json(student);
   } catch (error) {
-    res.status(500).json({ maessage: err.message });
+    res.status(500).json({ maessage: error.message });
   }
 });
 

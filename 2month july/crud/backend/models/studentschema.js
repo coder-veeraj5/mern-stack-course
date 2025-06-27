@@ -2,11 +2,12 @@
 const  mongoose  = require("mongoose");
 
 const studentSchema = new mongoose.Schema({
-  name: String, // Student's full name
-  age: Number, // Student's age
-  email: String, // Student's email address
-  course: String, // Course the student is enrolled in
-  admissionDate: String, // Date of admission
+  firstname: String,
+   lastname: String,
+   address: String, 
+  age: Number, 
+  
+  std: Number, 
 });
 
 // Create model for Student from schema

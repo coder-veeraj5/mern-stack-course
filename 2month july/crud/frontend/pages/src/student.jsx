@@ -34,7 +34,7 @@ getallstudent();
   const [ firstName , setFirstName] = useState()
   const [ lastname , setLastname] = useState()
   const [ address, setaddress] = useState()
-  const [ age , setage] = useState()
+  const [ roll , setroll] = useState()
  const [ std , setstd] = useState()
 
 const submitstudentdata= async()=>{
@@ -45,11 +45,12 @@ const submitstudentdata= async()=>{
         firstname: firstName,
         lastname:lastname ,
         address: address,
-        age: age,
+        roll: roll,
         std: std
         
     }
      const response = await axios.post("http://localhost:3003/students" , payload);
+     getallstudent();
        console.log(response.data , "====>")
 
   } catch (error) {
@@ -85,9 +86,9 @@ try {
 }
 }
 
-const onchangeage= (e)=>{
+const onchangeroll= (e)=>{
 try {
-  setage(e.target.value);
+  setroll(e.target.value);
 } catch (error) {
   console.log(error);
   
@@ -155,8 +156,8 @@ try {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formGridAddress2">
-              <Form.Label>Age</Form.Label>
-              <Form.Control placeholder="Enter your age" onChange={onchangeage}/>
+              <Form.Label>Roll no.</Form.Label>
+              <Form.Control placeholder="Enter your roll no." onChange={onchangeroll}/>
             </Form.Group>
 
             <Row className="mb-3">
@@ -165,25 +166,12 @@ try {
                 <Form.Control onChange={onchangestd}/>
               </Form.Group>
 
-              <Form.Group as={Col} controlId="formGridState">
-                <Form.Label>State</Form.Label>
-                <Form.Select defaultValue="Choose...">
-                  <option>Choose...</option>
-                  <option>...</option>
-                </Form.Select>
-              </Form.Group>
-
-              <Form.Group as={Col} controlId="formGridZip">
-                <Form.Label>Zip</Form.Label>
-                <Form.Control />
-              </Form.Group>
+             
             </Row>
 
-            <Form.Group className="mb-3" id="formGridCheckbox">
-              <Form.Check type="checkbox" label="Check me out" />
-            </Form.Group>
+            
 
-            <Button variant="primary"  onChange={submitstudentdata}>
+            <Button variant="primary"  onClick={submitstudentdata}>
               Submit
             </Button>
           </Form>
@@ -199,19 +187,19 @@ try {
                 <th>first Name</th>
                 <th>last name</th>
                 <th>address</th>
-                <th>age</th>
+                <th>Rollno.</th>
                 <th>std</th>
               </tr>
             </thead>
             <tbody>
-               {info.map((student, index) => (
+               { info && info.map((student, index) => (
                 <tr>
                   <td>{index + 1}</td>
-                  <td>{student.firstname}</td>
-                  <td>{student.lastname}</td>
-                  <td>{student.address}</td>
-                  <td>{student.age}</td>
-                  <td>{student.std}</td>
+                  <td>{student?.firstname}</td>
+                  <td>{student?.lastname}</td>
+                  <td>{student?.address}</td>
+                  <td>{student?.roll}</td>
+                  <td>{student?.std}</td>
                 </tr>
               ))}  
             </tbody>

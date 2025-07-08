@@ -2,12 +2,12 @@ const Student = require("../models/studentschema");
  
  const createstudent=async(req,res)=>{
   try {
-    const {firstname,lastname, address, age, std } = req.body;
+    const {firstname,lastname, address, roll, std } = req.body;
     const studentdata = new Student({
       firstname,
       lastname,
       address,
-      age,
+      roll,
       std
     }); // Create new student from request body
     await studentdata.save(); // Save to database

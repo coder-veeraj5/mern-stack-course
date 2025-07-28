@@ -3,9 +3,10 @@
   const router = express.Router();
 
 
-  const { registeruser }=require('../controllers/auth/auth.controller');
+  const { registeruser , loginuser, forgotpassword, verifyotp}=require('../controllers/auth/auth.controller');
 
   router.post('/register',registeruser);
-
-
+  router.post('/login',loginuser);
+   router.post('/forgot-password',forgotpassword);
+   router.post('/verify',verifyotp);
   module.exports = router ;

@@ -7,6 +7,8 @@ const userSchema = new mongoose.Schema({
     email : String,
     mobileNo : Number,
     password : String,
+    resetotp:Number ,
+    otpexpiration:Number ,
 })
 
 

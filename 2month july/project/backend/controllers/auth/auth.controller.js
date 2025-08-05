@@ -7,6 +7,18 @@
 const User = require("../../models/user/user.model");
 const bcrypt = require('bcrypt');
 const { generateToken } = require("../../utils/jwttokens");
+ const jwt=require("jsonwebtoken");
+const nodemailer = require("nodemailer");
+
+const transpoter= nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "ronycolmen67@gmail.com",
+    pass: "apvb pxhm agxp uesi",
+  },
+})
+
+
 
 const registeruser= async(req,res)=>{
 try {
@@ -52,6 +64,8 @@ if(!isPasswordMatch){
 }
 
 const token =generateToken(userData._id);
+    console.log("Generated token:", token);
+
 res.status(200).json({  message: "login successfully",token :token})
   
 } catch (error) {
@@ -68,10 +82,10 @@ const forgotpassword=async(req,res)=>{
 try {
   const {email}=req.body;
 
-  const userData= await User.findOne({email});
+  const userData = await User.findOne({email});
 
   if(!userData){
-   return res.status(401).json({message:"invalid email"});
+   return res.status(404).json({message:"invalid email"});
 
   }
  
@@ -81,20 +95,28 @@ try {
    userData.resetotp=otp;
    userData.otpexpiration=expiresAt;
 
-console.log("OTP:", otp);
-console.log("ExpiresAt:", expiresAt);
-console.log("Before Save:", userData);
+// console.log("OTP:",  userData.resetotp);
+// console.log("ExpiresAt:",  userData.otpexpiration );
+// console.log("Before Save:", userData);
 
 
    await userData.save();
 
+    const mailOptions = {
+      from: "ronycolmen67@gmail.com",
+      to: email,
+      subject: "Password Reset OTP",
+      text: `Your OTP for password reset is: ${otp}. It will expire in 10 minutes.`,
+    };
 
+    await transpoter.sendMail(mailOptions);
 res.status(200).json({message:"otp send",otp :otp});
 
 
 } catch (error) {
-  console.log(error);
+ 
   
+res.status(200).json({ message:error.message});
 }
 }
 
@@ -109,6 +131,7 @@ try {
   return res.status(401).json({message :"email  invalid"});
 }
 
+// console.log(verify,"verify");
 
 
   if(parseInt(otp) !==verify.resetotp){
@@ -116,23 +139,60 @@ try {
 }
 
 if(verify.otpexpiration<Date.now()){
-   return res.status(401).json({message :"   otp has expired"});
+   return res.status(401).json({message :"   otp has expired"}); //doubt
 }
 
-res.status(200).json({message:"otp verified sucessfully"})
+const token=generateToken(verify._id);
+
+res.status(200).json({message:"otp verified sucessfully", token:token})
 
 } catch (error) {
-  console.log(error);
   
+res.status(200).json({ message:error.message});
 }
 
+}
+
+
+const resetpassword=async(req,res)=>
+  {
+try {
+ const {token, newpassword}=req.body;
+
+let decode;
+try {
+     decode =jwt.verify(token, process.env.JWT_SECRET);
+} catch (error) {
+    
+ return res.status(404).json({ messsage : "token is not valid" ,error:error.message});
+}
+console.log(decode,"decode");
+const userData=await User.findById(decode.id);
+
+  if(!userData){
+   return res.status(404).json({message:" user not found"});
+
+  }
+
+  userData.password=newpassword;
+
+
+  await userData.save();
+
+
+ return res.status(200).json({message:"paassword change"});
+} catch (error) {
+console.log(error);
+
+}
 }
 
 
 
 
 module.exports={
-     registeruser,loginuser,forgotpassword,verifyotp
+
+     registeruser,loginuser,forgotpassword,verifyotp,resetpassword
     
 }
 

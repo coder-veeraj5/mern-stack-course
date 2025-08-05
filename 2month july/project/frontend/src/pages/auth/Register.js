@@ -8,8 +8,37 @@ import loginimg from "../../accets/login-img.png";
 import instalogo from "../../accets/instalogo.jpg";
 import dropdown from "../../accets/dropdown.png";
 import { Link } from "react-router-dom";
-
+import { useState } from "react";
+import axios from "axios";
 function Register() {
+const [password, setpassword] = useState()
+const [email, setemail] = useState()
+const [username, setusername] = useState()
+
+const submitform= async()=>{
+  try {
+    
+    console.log("username",username);
+    
+    console.log("email",email);
+    console.log("password",password);
+
+    const apiresponse= await axios.post("http://localhost:9090/api/auth/register",{
+  userName:username,
+    email:email,
+    password:password,
+
+    });
+
+    console.log(apiresponse);
+    
+
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
+
   return (
     <div>
       <div className="container con mt-5">
@@ -30,32 +59,39 @@ function Register() {
               <div className="line2"></div>
             </div>
 
-            <div className="input mb-3">
+            {/* <div className="input mb-3">
               <input
                 type="text"
                 placeholder="Phone number,username or email"
                 className=" reg-input"
               />
-            </div>
-            <div className="input mb-3">
-              <input
-                type="text"
-                placeholder="Password"
-                className="  reg-input inputpassword"
-              />
-            </div>
-             <div className="input mb-3">
-              <input
-                type="text"
-                placeholder="Full Name"
-                className="  reg-input inputpassword"
-              />
-            </div>
-             <div className="input mb-3">
+            </div> */}
+               <div className="input mb-3">
               <input
                 type="text"
                 placeholder="Username"
                 className="  reg-input inputpassword"
+                     onChange={(e)=>setusername(e.target.value)}
+              />
+            </div>
+
+             <div className="input mb-3">
+              <input
+                type="text"
+                placeholder="email"
+                className="  reg-input inputpassword"
+                     onChange={(e)=>setemail(e.target.value)}
+              />
+            </div>
+           
+            
+          
+             <div className="input mb-3">
+              <input
+                type="text"
+                placeholder="Password"
+                className="  reg-input inputpassword"
+                onChange={(e)=>setpassword(e.target.value)}
               />
             </div>
 
@@ -64,7 +100,7 @@ function Register() {
 
 
             <div>
-              <button className="btn-login signup-btn mb-4"> <Link to="/birthday"> sing up </Link></button>
+              <button type="submit" className="btn-login signup-btn mb-4" onClick={submitform}>  sing up </button>
             </div>
          
 

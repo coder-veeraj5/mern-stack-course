@@ -6,8 +6,10 @@ import loginimg from "../../accets/login-img.png";
 import instalogo from "../../accets/instalogo.jpg";
 import dropdown from "../../accets/dropdown.png";
 import { Link } from "react-router-dom";
-
+import { useState } from "react";
 function Login() {
+  const [email, setemail] = useState()
+  const [username, setusername] = useState()
   return (
     <div>
       <div className="container main-con mt-5">

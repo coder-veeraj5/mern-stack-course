@@ -1,8 +1,8 @@
  const jwt=require("jsonwebtoken");
 
  const generateToken=(userId)=>{
-try {
-    const token= jwt.sign({id: userId},"JWT_SECRET",{
+ try {
+    const token= jwt.sign({id: userId}, process.env.JWT_SECRET,{
         expiresIn:"1d",
     });
     return token;
@@ -16,8 +16,8 @@ const verifyToken=async(req,res,next)=>{
     try {
         const authHeader=req.headers.authorization;
         const token=authHeader.split( " ")[1];
-        const decode =jwt.verify(token,"JWT_SECRET");
-        req.user={userId : decode.id};
+        const decode =jwt.verify(token, process.env.JWT_SECRET);
+        req.user={id : decode.id};
 
         next();
     } catch (error) {
@@ -25,6 +25,7 @@ const verifyToken=async(req,res,next)=>{
         
     }
 }
+
 
  module.exports={
     generateToken,

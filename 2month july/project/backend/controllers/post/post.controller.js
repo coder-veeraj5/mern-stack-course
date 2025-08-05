@@ -9,11 +9,13 @@ const Post = require("../../models/post/post.model");
 const createpost=async(req,res)=>{
 try {
 
-    
+
     const {description,location,active}=req.body;
     const userId=req.user.id;
 
-    const newpost=new Post({userId,description,location,active});
+    const newpost=new Post({
+        description,location,active,userId
+    });
 
 await newpost.save();
 
@@ -25,7 +27,6 @@ res.status(201).json({post:newpost ,message: "post created"})
     console.log(error);
     
 }
-
 
 }
 

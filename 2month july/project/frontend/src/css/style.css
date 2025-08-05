@@ -108,6 +108,7 @@ color: rgb(168,168,168);
   border-style: none;
   font-size: 12px;
   padding: 6px;
+  color: white !important;
 }
 .signup-btn{
   background-color: rgb(0,105,173);
@@ -120,7 +121,7 @@ color: rgb(168,168,168);
 }
 .reg-text{
 text-align: center;
-
+color: white !important;
 margin: 4px auto;
 width: 23%;
 border: 1px solid rgb(168,168,168);

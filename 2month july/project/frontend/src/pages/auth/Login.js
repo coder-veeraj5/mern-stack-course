@@ -4,12 +4,34 @@ import Card from "react-bootstrap/Card";
 import facebook from "../../accets/facebooklogo.png";
 import loginimg from "../../accets/login-img.png";
 import instalogo from "../../accets/instalogo.jpg";
-import dropdown from "../../accets/dropdown.png";
+
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
+
 function Login() {
   const [email, setemail] = useState()
-  const [username, setusername] = useState()
+  const [password, setpassword] = useState()
+
+  const submitlogin =async()=>{
+    try {
+      
+        console.log("Email:", email);
+    console.log("Password:", password);
+const apiresponse= await axios.post("http://localhost:9090/api/auth/login",{
+  email:email,
+  password:password,
+}
+
+);
+console.log(apiresponse);
+
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
+
   return (
     <div>
       <div className="container main-con mt-5">
@@ -24,8 +46,9 @@ function Login() {
             <div className="input mb-3">
               <input
                 type="text"
-                placeholder="Phone number,username or email"
+                placeholder=" email"
                 className="w-50 inputnum"
+                onChange={(e)=>setemail(e.target.value)}
               />
             </div>
             <div className="input mb-3">
@@ -33,10 +56,11 @@ function Login() {
                 type="text"
                 placeholder="Password"
                 className="w-50 inputpassword"
+                     onChange={(e)=>setpassword(e.target.value)}
               />
             </div>
             <div>
-              <button className="w-50 loginbtn">Log in</button>
+              <button className="w-50 loginbtn" onClick={submitlogin}>Log in</button>
             </div>
             <div className="lineor mt-4">
               <div className="line1"></div>

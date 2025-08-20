@@ -23,8 +23,13 @@ const apiresponse= await axios.post("http://localhost:9090/api/auth/login",{
   password:password,
 }
 
-);
-console.log(apiresponse);
+);// console.log(apiresponse.data.token,"token");
+
+if(apiresponse.data.token){
+localStorage.setItem("usertoken",apiresponse.data.token);
+
+}
+
 
     } catch (error) {
       console.log(error);

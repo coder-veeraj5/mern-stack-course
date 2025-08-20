@@ -1,6 +1,20 @@
 import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 
 function Home() {
+
+  const [token, settoken] = useState()
+ useEffect(() => {
+   const data = localStorage.getItem("usertoken");
+   console.log(data);
+   
+   settoken(data);
+   
+ 
+   
+ }, []);
+ 
   return (
     <div>
       <div className="container">

@@ -23,7 +23,7 @@ const transpoter= nodemailer.createTransport({
 const registeruser= async(req,res)=>{
 try {
    
-  const  {userName,email,password}=req.body;
+  const  {userName,email,password,mobileNo}=req.body;
 
   const isexists=await User.findOne({email});
   if(isexists){
@@ -32,7 +32,7 @@ try {
 
   const hashpass= await bcrypt.hash(password,10);
 
-  const newUser=new User({userName,email,password :hashpass});
+  const newUser=new User({userName,email,password :hashpass,mobileNo});
 
   await newUser.save();
 

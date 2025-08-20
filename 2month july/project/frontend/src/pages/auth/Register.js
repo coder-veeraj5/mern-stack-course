@@ -14,7 +14,7 @@ function Register() {
 const [password, setpassword] = useState()
 const [email, setemail] = useState()
 const [username, setusername] = useState()
-
+const [mobile, setmobile] = useState()
 const submitform= async()=>{
   try {
     
@@ -27,7 +27,7 @@ const submitform= async()=>{
   userName:username,
     email:email,
     password:password,
-
+mobileNo:mobile
     });
 
     console.log(apiresponse);
@@ -75,6 +75,14 @@ const submitform= async()=>{
               />
             </div>
 
+<div className="input mb-3">
+              <input
+                type="number"
+                placeholder="Enter mobile No."
+                className="  reg-input inputpassword"
+                     onChange={(e)=>setmobile(e.target.value)}
+              />
+            </div>
              <div className="input mb-3">
               <input
                 type="text"

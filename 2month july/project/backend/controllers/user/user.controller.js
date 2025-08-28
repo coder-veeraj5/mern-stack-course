@@ -17,6 +17,47 @@ res.status(201).json({  message: " get User  successfully",userdata})
         
     }
 }
+
+const updateuserprofile =async(req,res)=>{
+try {
+    
+    const userid=req.user.userId;
+
+const {fullName,userName,mobileNo}=req.body;
+
+const update= await User.findByIdAndUpdate(userid,{
+    fullName,userName,mobileNo
+},
+{
+new :true,  //shows newly updated value on payload
+})
+
+res.status(200).json({message:"update succesfully",update});
+
+} catch (error) {
+    console.log(error);
+    res.status(500).json({message:error.message});
+}
+
+}
+
+const deleteuserprofile = async(req,res)=>{
+try {
+    
+    const userid=req.user.userId;
+
+const deleteprofile = await User.findByIdAndDelete(userid);
+
+res.status(200).json({message:"delete succesfully"});
+} catch (error) {
+     console.log(error);
+    res.status(500).json({message:error.message});
+}
+
+}
+
 module.exports={
-    getuserprofile
+    getuserprofile,
+    updateuserprofile,
+    deleteuserprofile
 }

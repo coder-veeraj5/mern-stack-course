@@ -4,14 +4,16 @@ import Card from "react-bootstrap/Card";
 import facebook from "../../accets/facebooklogo.png";
 import loginimg from "../../accets/login-img.png";
 import instalogo from "../../accets/instalogo.jpg";
-
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [email, setemail] = useState()
   const [password, setpassword] = useState()
+const navigate=useNavigate();
 
   const submitlogin =async()=>{
     try {
@@ -23,12 +25,18 @@ const apiresponse= await axios.post("http://localhost:9090/api/auth/login",{
   password:password,
 }
 
+
 );// console.log(apiresponse.data.token,"token");
+
 
 if(apiresponse.data.token){
 localStorage.setItem("usertoken",apiresponse.data.token);
-
+navigate('/home')
 }
+// console.log(apiresponse.data);
+
+
+
 
 
     } catch (error) {
@@ -37,6 +45,26 @@ localStorage.setItem("usertoken",apiresponse.data.token);
     }
   }
 
+
+  const checkloginistrue=()=>
+  {
+try {
+  const token =localStorage.getItem("usertoken");
+if(token ){
+  navigate("/home")
+}
+
+} catch (error) {
+  console.log(error);
+  
+}
+
+
+
+  };
+  useEffect(() => {
+checkloginistrue();
+}, [])
   return (
     <div>
       <div className="container main-con mt-5">

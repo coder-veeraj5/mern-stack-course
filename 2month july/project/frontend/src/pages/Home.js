@@ -1,48 +1,103 @@
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-
+import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 function Home() {
 
-  const [token, settoken] = useState()
- useEffect(() => {
-   const data = localStorage.getItem("usertoken");
-   console.log(data);
+const navigate=useNavigate();
+  const [userData, setUserData] = useState();
+
+  const getUserInfo=async()=>{
+    try {
+      
+const token =localStorage.getItem("usertoken");
+if(!token){
+navigate('/')
+return;
+}
+
+ const apiResponse = await axios.get(
+        "http://localhost:9090/api/user/getuserprofile",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("API response:", apiResponse.data);
+        console.log(apiResponse.data.userdata);
+     setUserData(apiResponse.data.userdata);
    
-   settoken(data);
-   
+
+
+  
+    } catch (error) {
+         console.error("Error fetching user info:", error);
+      navigate("/");
+    }
+  }
+
+
  
-   
- }, []);
- 
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+
+
+  const handellogout=()=>{
+
+    localStorage.removeItem("usertoken");
+    navigate("/")
+  }
+
   return (
-    <div>
-      <div className="container">
-        <div className="row  home-row text-center">
-          <div className="  col-md-3">
-            <div className="profile-img">
-              <img src="https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D" />
-            </div>
-          </div>
-          <div className="col-md-3">
-            <span>10</span>
-            <br />
-            <p>Posts</p>
-          </div>
-          <div className="col-md-3">
-            <span>389</span>
-            <br />
-            <p>Followers</p>
-          </div>
-          <div className="col-md-3">
-            <span>310</span>
-            <br />
-            <p>Following</p>
-          </div>
+  
+  <div className="home-container py-5">
+    <div className="container">
+      {/* Profile Section */}
+      <div className="row mb-5 align-items-center">
+        <div className="col-md-4 text-center mb-4 mb-md-0">
+          <img
+            src="https://i1.rgstatic.net/ii/profile.image/1054505286258688-1628425060244_Q512/William-Blakeney.jpg"
+            alt="Profile"
+            className="profile-img rounded-circle"
+          />
+        </div>
+        <div className="col-md-4 text-center">
+          <h2 className="mb-3">Harish Palsande</h2>
+          <ul className="list-unstyled">
+            <li>
+              <strong>Username:</strong> {userData?.userName}
+            </li>
+            <li>
+              <strong>Email:</strong> {userData?.email}
+            </li>
+            <li>
+              <strong>Mobile:</strong> 1234567890
+            </li>
+          </ul>
+        </div>
+        <div className="col-md-4 text-center text-md-end">
+          <button className="btn btn-danger my-1 w-100 " onClick={handellogout}>
+            Log Out
+          </button>
+          <button className="btn btn-primary my-1 w-100">
+            Edit Profile
+          </button>
+          <button className="btn btn-warning my-1 w-100">
+            Delete Profile
+          </button>
+          <button className="btn btn-success my-1 w-100">
+            Create Post
+          </button>
         </div>
       </div>
     </div>
-  );
+  </div>
+);
+
+ 
 }
 
 export default Home;

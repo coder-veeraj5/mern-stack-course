@@ -11,7 +11,7 @@ try {
 
 
     const {description,location,active}=req.body;
-    const userId=req.user.id;
+    const userId=req.user.userId;
 
     const newpost=new Post({
         description,location,active,userId
@@ -43,6 +43,7 @@ console.log(allPostData);
       allPostData: allPostData,
     });
 
+
   // Handle any errors during post retrieval
   } catch (error) {
     // Log the error to the console
@@ -50,7 +51,71 @@ console.log(allPostData);
   }
 };
 
+const updatePost = async (req, res) => {
+  try {
+    const { postId, description, location, active } = req.body;
+
+    const updatepost = await Post.findByIdAndUpdate(
+      postId,
+      {
+        description,
+        location,
+        active,
+      },
+      {
+        new: true,
+      }
+    );
+console.log(updatepost,"updatedpost");
+
+    res.status(201).json({
+      message: "Post Updated",
+      userData: updatepost,
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.json({ message: error.message });
+  }
+};
+
+const getmypost = async (req, res) => {
+  try {
+
+    console.log("hii this is mypost");
+    
+    
+    const userId = req.user.userId;
+    const PostsData = await Post.find({ userId });
+
+    console.log(PostsData,"postdata");
+    
+    res.status(200).json({
+      message: "Get All My Post",
+      mypostdata: PostsData,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+const deletePost = async (req, res) => {
+  try {
+    // const userId = req.user.userId;
+// const postId = req.param.id
+// console.log(postId,'idddd');
+    const { postId } = req.body;
+
+   await Post.findByIdAndDelete(postId);
+
+
+    res.status(201).json({ message: "Deleted Post" });
+  } catch (error) {
+    console.log(error.message);
+    res.json({ message: error.message });
+  }
+};
 
 module.exports={
-    createpost,getAllPost
+    createpost,getAllPost,
+getmypost,updatePost,deletePost
 }

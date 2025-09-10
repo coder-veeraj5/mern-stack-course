@@ -63,6 +63,7 @@ if(!isPasswordMatch){
   return res.status(401).json({message :"email or password is invalid"});
 }
 
+
 const token =generateToken(userData._id);
     console.log("Generated token:", token);
 
@@ -167,18 +168,19 @@ try {
  return res.status(404).json({ messsage : "token is not valid" ,error:error.message});
 }
 console.log(decode,"decode");
-const userData=await User.findById(decode.id);
-
+const userData=await User.findById(decode.userId);
+console.log(userData,"id");
   if(!userData){
    return res.status(404).json({message:" user not found"});
 
   }
 
-  userData.password=newpassword;
 
+const hashpass = await bcrypt.hash(newpassword, 10);
+    userData.password = hashpass;
 
   await userData.save();
-
+console.log(userData,"id");
 
  return res.status(200).json({message:"paassword change"});
 } catch (error) {

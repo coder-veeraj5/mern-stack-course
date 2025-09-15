@@ -100,9 +100,7 @@ const getmypost = async (req, res) => {
 
 const deletePost = async (req, res) => {
   try {
-    // const userId = req.user.userId;
-// const postId = req.param.id
-// console.log(postId,'idddd');
+    
     const { postId } = req.body;
 
    await Post.findByIdAndDelete(postId);

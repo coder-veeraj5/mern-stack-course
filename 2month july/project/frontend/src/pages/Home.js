@@ -2,11 +2,14 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+
 import axios from "axios";
+import Logout from "../components/modalpopups/Logout";
 function Home() {
 
 const navigate=useNavigate();
   const [userData, setUserData] = useState();
+  const [logoutpop, setlogoutpop] = useState(false);
 
   const getUserInfo=async()=>{
     try {
@@ -48,8 +51,17 @@ return;
   const handellogout=()=>{
 
     localStorage.removeItem("usertoken");
+      setlogoutpop(false);
     navigate("/")
   }
+
+const handlelogoutshow=()=>{
+  setlogoutpop(true);
+}
+
+const handlelogoutclose=()=>{
+  setlogoutpop(false);
+}
 
   return (
   
@@ -79,7 +91,7 @@ return;
           </ul>
         </div>
         <div className="col-md-4 text-center text-md-end">
-          <button className="btn btn-danger my-1 w-100 " onClick={handellogout}>
+          <button className="btn btn-danger my-1 w-100 " onClick={handlelogoutshow}>
             Log Out
           </button>
           <button className="btn btn-primary my-1 w-100">
@@ -94,10 +106,16 @@ return;
         </div>
       </div>
     </div>
+
+    <Logout
+        show={logoutpop}
+        handleClose={handlelogoutclose}
+        handleLogout={handellogout}
+      />
   </div>
 );
 
- 
+       
 }
 
 export default Home;

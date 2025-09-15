@@ -1,18 +1,15 @@
-import React from "react";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+
+import { ToastContainer, toast } from 'react-toastify';
 import facebook from "../../accets/facebooklogo.png";
 import loginimg from "../../accets/login-img.png";
 import instalogo from "../../accets/instalogo.jpg";
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import axios from "axios";
-import { useNavigate } from 'react-router-dom';
 
 function Login() {
-  const [email, setemail] = useState()
-  const [password, setpassword] = useState()
+  const [email, setemail] = useState('')
+  const [password, setpassword] = useState('')
 const navigate=useNavigate();
 
   const submitlogin =async()=>{
@@ -31,7 +28,10 @@ const apiresponse= await axios.post("http://localhost:9090/api/auth/login",{
 
 if(apiresponse.data.token){
 localStorage.setItem("usertoken",apiresponse.data.token);
-navigate('/home')
+toast.success("login success")
+setTimeout(() => {
+  navigate('/home')
+}, 5000);
 }
 // console.log(apiresponse.data);
 
@@ -41,7 +41,8 @@ navigate('/home')
 
     } catch (error) {
       console.log(error);
-      
+      const errormsg=error.response.data.message;
+      toast.error(errormsg)
     }
   }
 
@@ -65,9 +66,16 @@ if(token ){
   useEffect(() => {
 checkloginistrue();
 }, [])
+
+
+
+ 
   return (
     <div>
+      
       <div className="container main-con mt-5">
+
+
         <div className="row    main-row text-center ">
           <div className="col-md-6">
             <img src={loginimg} alt="login-img" className="w-100 mt-3" />
@@ -86,7 +94,7 @@ checkloginistrue();
             </div>
             <div className="input mb-3">
               <input
-                type="text"
+                type="password"
                 placeholder="Password"
                 className="w-50 inputpassword"
                      onChange={(e)=>setpassword(e.target.value)}
@@ -137,6 +145,10 @@ checkloginistrue();
           <span  className="spantext">© 2025 Instagram from Meta</span>
         </div>
       </footer>
+
+
+
+       <ToastContainer autoClose={5000}/>
     </div>
   );
 }

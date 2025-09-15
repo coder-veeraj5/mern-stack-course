@@ -108,7 +108,7 @@ mobileNo:mobile
 
 
             <div>
-              <button type="submit" className="btn-login signup-btn mb-4" onClick={submitform}>  sing up </button>
+              <button type="submit" className="btn-login signup-btn mb-4" onClick={submitform}>  sign up </button>
             </div>
          
 
